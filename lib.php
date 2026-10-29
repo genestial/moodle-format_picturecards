@@ -169,7 +169,7 @@ class format_picturecards extends core_courseformat\base {
                 'hiddensections' => [
                     'label' => new lang_string('hiddensections'),
                     'help' => 'hiddensections',
-                    'help_component' => 'moodle',
+                    'help_component' => 'format_picturecards',
                     'element_type' => 'select',
                     'element_attributes' => [
                         [
