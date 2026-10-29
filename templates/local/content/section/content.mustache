@@ -1,0 +1,40 @@
+{{!
+    @template format_picturecards/local/content/section/content
+    Topic cover, header and core section contents.
+    Example context (json): {"picturecardshero": true, "picturecardstopiclabel": "Topic 1"}
+}}
+{{#picturecardshero}}
+    {{#displayonesection}}
+        <a href="{{picturecardsalltopics}}" class="format-picturecards-back">{{#str}}alltopics, format_picturecards{{/str}}</a>
+    {{/displayonesection}}
+    <div class="format-picturecards-topic-cover" style="--picturecards-topic-colour: {{picturecardscolour}}; --picturecards-topic-foreground: {{picturecardsforeground}};">
+        {{#picturecardscover}}<img src="{{picturecardscover}}" alt="" loading="lazy">{{/picturecardscover}}
+        {{^picturecardscover}}<i class="fa fa-calendar format-picturecards-topic-cover-default" aria-hidden="true"></i>{{/picturecardscover}}
+        {{#picturecardsappearance}}
+            <button type="button" class="format-picturecards-topic-appearance" data-picturecards-topic-appearance="{{id}}">
+                <i class="fa-regular fa-image" aria-hidden="true"></i> {{#str}}topicappearance, format_picturecards{{/str}}
+            </button>
+        {{/picturecardsappearance}}
+    </div>
+{{/picturecardshero}}
+{{< core_courseformat/local/content/section/content }}
+    {{$ core_courseformat/local/content/section/header }}
+        <div class="format-picturecards-topic-heading">
+            {{#picturecardstopiclabel}}<span class="format-picturecards-eyebrow">{{picturecardstopiclabel}}</span>{{/picturecardstopiclabel}}
+            {{> core_courseformat/local/content/section/header }}
+            {{#displayonesection}}
+                {{#picturecardshero}}<h2 class="format-picturecards-single-title">{{{title}}}</h2>{{/picturecardshero}}
+            {{/displayonesection}}
+        </div>
+        {{#picturecardsprogress}}
+            <div class="format-picturecards-progress">
+                <div><strong>{{#str}}yourprogress, format_picturecards{{/str}}</strong><span data-picturecards-progress-label>{{label}}</span></div>
+                <progress max="100" value="{{percent}}" aria-label="{{#str}}yourprogress, format_picturecards{{/str}}">{{percent}}%</progress>
+            </div>
+        {{/picturecardsprogress}}
+    {{/ core_courseformat/local/content/section/header }}
+    {{$ core_courseformat/local/content/section/cmlist }}
+        {{> format_picturecards/local/content/section/cmlist }}
+    {{/ core_courseformat/local/content/section/cmlist }}
+{{/ core_courseformat/local/content/section/content }}
+

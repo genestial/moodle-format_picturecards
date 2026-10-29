@@ -1,0 +1,11 @@
+{{!
+    @template format_picturecards/local/content/section/cmlist
+    Responsive activity collection.
+    Example context (json): {"cms": [], "hascms": false}
+}}
+{{< core_courseformat/local/content/section/cmlist }}
+    {{$ core_courseformat/local/content/section/cmitem }}
+        {{> format_picturecards/local/content/section/cmitem }}
+    {{/ core_courseformat/local/content/section/cmitem }}
+{{/ core_courseformat/local/content/section/cmlist }}
+

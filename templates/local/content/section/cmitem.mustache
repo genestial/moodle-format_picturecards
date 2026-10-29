@@ -1,0 +1,11 @@
+{{!
+    @template format_picturecards/local/content/section/cmitem
+    Tile entry point shared by initial and AJAX rendering.
+    Example context (json): {"id": 1, "anchor": "module-1"}
+}}
+{{< core_courseformat/local/content/section/cmitem }}
+    {{$ core_courseformat/local/content/cm/activity }}
+        {{> format_picturecards/local/content/cm/activity }}
+    {{/ core_courseformat/local/content/cm/activity }}
+{{/ core_courseformat/local/content/section/cmitem }}
+

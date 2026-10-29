@@ -1,0 +1,18 @@
+{{!
+    @template format_picturecards/local/content/cm/cmname
+    Large media header with activity type and Moodle's editable name.
+    Example context (json): {"url": "#", "pluginname": "Page", "activityname": {"displayvalue": "A page"} }
+}}
+{{#url}}
+    {{#activityicon}}{{> format_picturecards/local/content/cm/cmicon }}{{/activityicon}}
+    <div class="activity-name-area activity-instance">
+        <span class="format-picturecards-activity-type">{{pluginname}}</span>
+        <div class="activitytitle {{textclasses}} modtype_{{modname}} position-relative align-self-start">
+            <div class="activityname">
+                {{#activityname}}{{> core/inplace_editable }}{{/activityname}}
+                {{#activitybadge}}{{> core_courseformat/local/content/cm/activitybadge }}{{/activitybadge}}
+            </div>
+        </div>
+    </div>
+{{/url}}
+

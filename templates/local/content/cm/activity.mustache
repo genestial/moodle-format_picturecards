@@ -1,0 +1,20 @@
+{{!
+    @template format_picturecards/local/content/cm/activity
+    Add appearance control without replacing core activity behaviour.
+    Example context (json): {"picturecardsstate": "untracked", "picturecardsappearance": false}
+}}
+<div class="format-picturecards-tile" data-picturecards-state="{{picturecardsstate}}">
+    {{< core_courseformat/local/content/cm/activity }}
+        {{$ core_courseformat/local/content/cm/cmname }}
+            {{> format_picturecards/local/content/cm/cmname }}
+        {{/ core_courseformat/local/content/cm/cmname }}
+    {{/ core_courseformat/local/content/cm/activity }}
+    {{#picturecardsappearance}}
+        <a class="format-picturecards-appearance btn btn-light" href="{{picturecardsappearanceurl}}"
+           data-picturecards-appearance="{{cmid}}" title="{{#str}}tileappearance, format_picturecards{{/str}}"
+           aria-label="{{#str}}appearanceof, format_picturecards, {{picturecardstitle}}{{/str}}">
+            <i class="fa-regular fa-image" aria-hidden="true"></i>
+        </a>
+    {{/picturecardsappearance}}
+</div>
+

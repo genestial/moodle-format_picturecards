@@ -1,0 +1,11 @@
+{{!
+    @template format_picturecards/local/content/section
+    Preserve core section semantics and reactive editor hooks.
+    Example context (json): {"id": 1, "num": 1}
+}}
+{{< core_courseformat/local/content/section }}
+    {{$ core_courseformat/local/content/section/content }}
+        {{> format_picturecards/local/content/section/content }}
+    {{/ core_courseformat/local/content/section/content }}
+{{/ core_courseformat/local/content/section }}
+

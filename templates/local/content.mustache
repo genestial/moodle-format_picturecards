@@ -1,0 +1,77 @@
+{{!
+    @template format_picturecards/local/content
+    Course content with one layout control and single-topic footer navigation.
+    Example context (json): {"sections": []}
+}}
+{{#picturecardscoursehero}}
+<section class="format-picturecards-course-hero" aria-labelledby="format-picturecards-course-hero-title">
+    {{#image}}<img class="format-picturecards-course-hero-image" src="{{image}}" alt="">{{/image}}
+    <div class="format-picturecards-course-hero-content">
+        <h1 id="format-picturecards-course-hero-title">{{{title}}}</h1>
+        {{#description}}<div class="format-picturecards-course-hero-description">{{{description}}}</div>{{/description}}
+    </div>
+</section>
+{{/picturecardscoursehero}}
+<div class="format-picturecards-course-body{{#hastopiccards}} format-picturecards-has-topiccards{{/hastopiccards}}">
+{{< core_courseformat/local/content }}
+    {{$ core_courseformat/local/content/sectionnavigation }}{{/ core_courseformat/local/content/sectionnavigation }}
+    {{$ core_courseformat/local/content/section }}
+        {{> format_picturecards/local/content/section }}
+    {{/ core_courseformat/local/content/section }}
+{{/ core_courseformat/local/content }}
+<div class="format-picturecards-course-toolbar">
+    {{#hastopiccards}}<h2 id="format-picturecards-topics-heading">{{#str}}topics, format_picturecards{{/str}}</h2>{{/hastopiccards}}
+    <div class="format-picturecards-layout" role="group" aria-label="{{#str}}layout, format_picturecards{{/str}}">
+        <button type="button" data-picturecards-layout="tiles" aria-pressed="true"><i class="fa fa-th-large" aria-hidden="true"></i> {{#str}}tiles, format_picturecards{{/str}}</button>
+        <button type="button" data-picturecards-layout="list" aria-pressed="false"><i class="fa fa-list" aria-hidden="true"></i> {{#str}}list, format_picturecards{{/str}}</button>
+    </div>
+</div>
+{{#hastopiccards}}
+    <section class="format-picturecards-topic-grid" aria-labelledby="format-picturecards-topics-heading">
+        {{#picturecardstopiccards}}
+            <article class="format-picturecards-topic-card{{#ishidden}} format-picturecards-topic-card-hidden{{/ishidden}}{{#url}} format-picturecards-topic-card-linkable{{/url}}" data-picturecards-section-id="{{id}}">
+                <div class="format-picturecards-topic-card-media" style="--picturecards-topic-colour: {{colour}}; --picturecards-topic-foreground: {{foreground}};">
+                    {{#cover}}<img src="{{cover}}" alt="" loading="lazy">{{/cover}}
+                    {{^cover}}<i class="fa fa-calendar" aria-hidden="true"></i>{{/cover}}
+                    {{#iscomplete}}<span class="format-picturecards-topic-card-complete"><i class="fa fa-check" aria-hidden="true"></i> {{#str}}completed, format_picturecards{{/str}}</span>{{/iscomplete}}
+                </div>
+                <div class="format-picturecards-topic-card-body">
+                    {{#number}}<span class="format-picturecards-eyebrow">{{number}}</span>{{/number}}
+                    <h3>{{#url}}<a href="{{url}}">{{{name}}}</a>{{/url}}{{^url}}{{{name}}}{{/url}}</h3>
+                    {{#ishidden}}<span class="format-picturecards-topic-card-status">{{#str}}hiddenfromstudents, core{{/str}}</span>{{/ishidden}}
+                    {{#restricted}}<span class="format-picturecards-topic-card-status">{{#str}}restricted, core{{/str}}</span>{{/restricted}}
+                    {{#hasicons}}
+                        <div class="format-picturecards-topic-card-icons">
+                            {{#icons}}<span class="format-picturecards-topic-card-icon" role="img" aria-label="{{name}}: {{count}}" title="{{name}}: {{count}}"><img src="{{url}}" alt="" loading="lazy"><span class="format-picturecards-topic-card-icon-count">{{count}}</span></span>{{/icons}}
+                        </div>
+                    {{/hasicons}}
+                    {{#progress}}
+                        <div class="format-picturecards-topic-card-progress">
+                            <progress max="100" value="{{percent}}" aria-label="{{#str}}yourprogress, format_picturecards{{/str}}">{{percent}}%</progress>
+                            <span>{{label}}</span>
+                        </div>
+                    {{/progress}}
+                </div>
+            </article>
+        {{/picturecardstopiccards}}
+    </section>
+{{/hastopiccards}}
+</div>
+{{#picturecardsnavigation}}
+    <nav class="format-picturecards-topic-navigation" aria-label="{{#str}}topicnavigation, format_picturecards{{/str}}">
+        {{#hasprevious}}
+            <a class="format-picturecards-topic-navigation-link" href="{{previousurl}}">
+                <span class="format-picturecards-nav-arrow" aria-hidden="true">{{{larrow}}}</span>
+                <span><small>{{#str}}previous, format_picturecards{{/str}}</small><strong>{{{previousname}}}</strong></span>
+            </a>
+        {{/hasprevious}}
+        {{^hasprevious}}<span></span>{{/hasprevious}}
+        {{#hasnext}}
+            <a class="format-picturecards-topic-navigation-link format-picturecards-topic-navigation-next" href="{{nexturl}}">
+                <span><small>{{#str}}next, format_picturecards{{/str}}</small><strong>{{{nextname}}}</strong></span>
+                <span class="format-picturecards-nav-arrow" aria-hidden="true">{{{rarrow}}}</span>
+            </a>
+        {{/hasnext}}
+    </nav>
+{{/picturecardsnavigation}}
+

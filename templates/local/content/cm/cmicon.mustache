@@ -1,0 +1,20 @@
+{{!
+    @template format_picturecards/local/content/cm/cmicon
+    Decorative tile media. The activity title provides its accessible name.
+    Example context (json): {"custommedia": "default", "colour": "blue", "focusx": 50, "focusy": 50}
+}}
+<div class="activity-icon activityiconcontainer {{purpose}} {{#branded}}isbranded{{/branded}} format-picturecards-media format-picturecards-media-{{custommedia}} format-picturecards-colour-{{colour}}" style="--picturecards-palette-colour: {{picturecardscolour}};">
+    {{#customimageurl}}
+        <img src="{{customimageurl}}" class="format-picturecards-image" alt="" loading="lazy"
+             style="object-position: {{focusx}}% {{focusy}}%;">
+    {{/customimageurl}}
+    {{#customiconclass}}
+        <span class="format-picturecards-customicon" aria-hidden="true"><i class="{{customiconclass}}"></i></span>
+    {{/customiconclass}}
+    {{^customimageurl}}
+        {{^customiconclass}}
+            <img src="{{icon}}" class="activityicon {{iconclass}}" data-region="activity-icon" data-id="{{cmid}}" alt="">
+        {{/customiconclass}}
+    {{/customimageurl}}
+</div>
+

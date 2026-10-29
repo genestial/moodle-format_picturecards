@@ -1,0 +1,34 @@
+{{!
+    @template format_picturecards/appearance_controls
+    Progressive enhancement for a core Moodle form; native fields remain the source of truth.
+    Example context (json): {"cmid": 1, "icons": [], "colours": [], "title": "Activity"}
+}}
+<div class="format-picturecards-appearance-controls" data-picturecards-form="{{cmid}}">
+    <div class="format-picturecards-preview" aria-hidden="true">
+        <img class="format-picturecards-preview-image" {{#imageurl}}src="{{imageurl}}"{{/imageurl}} alt="" {{^imageurl}}hidden{{/imageurl}}>
+        <img class="format-picturecards-preview-default" src="{{defaulticon}}" alt="">
+        <i class="format-picturecards-preview-icon" hidden></i>
+        <span class="format-picturecards-focuspoint" hidden></span>
+    </div>
+    <p class="format-picturecards-focushelp">{{#str}}focusinstructions, format_picturecards{{/str}}</p>
+    <div class="format-picturecards-icon-picker" hidden>
+        <label for="picturecards-icon-search-{{cmid}}">{{#str}}findicon, format_picturecards{{/str}}</label>
+        <input id="picturecards-icon-search-{{cmid}}" type="search" class="form-control mb-3" data-picturecards-icon-search
+               placeholder="{{#str}}findiconplaceholder, format_picturecards{{/str}}">
+        <div class="format-picturecards-icon-options" role="group" aria-label="{{#str}}customicon, format_picturecards{{/str}}">
+            {{#icons}}
+                <button type="button" data-picturecards-icon="{{key}}" data-icon-class="{{class}}" aria-label="{{name}}"
+                        title="{{name}}" aria-pressed="false"><i class="{{class}}" aria-hidden="true"></i></button>
+            {{/icons}}
+        </div>
+        <div class="format-picturecards-swatch-options" role="group" aria-label="{{#str}}backgroundcolour, format_picturecards{{/str}}">
+            {{#colours}}
+                <button type="button" class="format-picturecards-colour-{{key}}" data-picturecards-colour="{{key}}"
+                        title="{{name}}" aria-label="{{name}}" aria-pressed="false"></button>
+            {{/colours}}
+        </div>
+    </div>
+    <p class="format-picturecards-defaulthelp" hidden>{{#str}}defaultinstructions, format_picturecards{{/str}}</p>
+    <p class="format-picturecards-scope">{{#str}}thisitemonly, format_picturecards{{/str}}</p>
+</div>
+

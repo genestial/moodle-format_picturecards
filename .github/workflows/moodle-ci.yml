@@ -1,0 +1,89 @@
+name: Moodle Plugin CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - {moodle: MOODLE_405_STABLE, php: '8.1'}
+          - {moodle: MOODLE_405_STABLE, php: '8.2'}
+          - {moodle: MOODLE_405_STABLE, php: '8.3'}
+          - {moodle: MOODLE_500_STABLE, php: '8.2'}
+          - {moodle: MOODLE_500_STABLE, php: '8.3'}
+          - {moodle: MOODLE_500_STABLE, php: '8.4'}
+          - {moodle: MOODLE_501_STABLE, php: '8.2'}
+          - {moodle: MOODLE_501_STABLE, php: '8.3'}
+          - {moodle: MOODLE_501_STABLE, php: '8.4'}
+          - {moodle: MOODLE_502_STABLE, php: '8.3'}
+          - {moodle: MOODLE_502_STABLE, php: '8.4'}
+          - {moodle: MOODLE_503_STABLE, php: '8.3'}
+          - {moodle: MOODLE_503_STABLE, php: '8.4'}
+        database: [pgsql, mariadb, mysqli]
+    services:
+      postgres:
+        image: ${{ matrix.database == 'pgsql' && 'postgres:17' || '' }}
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+      mariadb:
+        image: ${{ matrix.database == 'mariadb' && 'mariadb:11.4' || '' }}
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+        ports: ['3306:3306']
+        options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval 10s --health-timeout 5s --health-retries 3
+      mysql:
+        image: ${{ matrix.database == 'mysqli' && 'mysql:8.4' || '' }}
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        ports: ['3306:3306']
+        options: --health-cmd="mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 6
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: plugin
+          persist-credentials: false
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.target.php }}
+          extensions: mysqli, pgsql, intl, soap, gd, zip, sodium
+          ini-values: max_input_vars=5000, opcache.enable_cli=1, opcache.jit=disable
+          coverage: none
+      - name: Prepare CI tools
+        run: |
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
+          echo "$GITHUB_WORKSPACE/ci/bin" >> "$GITHUB_PATH"
+          echo "$GITHUB_WORKSPACE/ci/vendor/bin" >> "$GITHUB_PATH"
+          sudo locale-gen en_AU.UTF-8
+          echo "NVM_DIR=$HOME/.nvm" >> "$GITHUB_ENV"
+      - name: Exercise proposed compatibility range
+        run: |
+          sed -i 's/\$plugin->requires  = 2026100500;/\$plugin->requires  = 2024100700;/' plugin/version.php
+          sed -i 's/\$plugin->supported = \[503, 503\];/\$plugin->supported = [405, 503];/' plugin/version.php
+      - name: Install test site
+        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+        env:
+          DB: ${{ matrix.database }}
+          MOODLE_BRANCH: ${{ matrix.target.moodle }}
+      - run: moodle-plugin-ci phplint
+      - run: moodle-plugin-ci phpcs --max-warnings 0
+      - run: moodle-plugin-ci phpdoc --max-warnings 0
+      - run: moodle-plugin-ci validate
+      - run: moodle-plugin-ci savepoints
+      - run: moodle-plugin-ci mustache
+      - run: moodle-plugin-ci grunt --max-lint-warnings 0
+      - run: moodle-plugin-ci phpunit --fail-on-warning
+      - name: Behat
+        id: behat
+        run: moodle-plugin-ci behat --profile chrome --scss-deprecations
+      - uses: actions/upload-artifact@v7
+        if: ${{ failure() && steps.behat.outcome == 'failure' }}
+        with:
+          name: Behat failures (${{ matrix.target.moodle }}, ${{ matrix.target.php }}, ${{ matrix.database }})
+          path: moodledata/behat_dump
+          if-no-files-found: ignore
