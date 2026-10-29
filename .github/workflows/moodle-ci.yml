@@ -88,7 +88,7 @@ jobs:
           pluginpath="$GITHUB_WORKSPACE/moodle/public/course/format/picturecards"
           cp -a "$pluginpath/amd/build" "$RUNNER_TEMP/picturecards-original-build"
           cd "$pluginpath/amd"
-          npx grunt amd --max-lint-warnings 0
+          npx grunt amd --max-lint-warnings=0
       - name: Upload canonical build for inspection
         if: matrix.target.moodle == 'MOODLE_503_STABLE' && matrix.target.php == '8.3' && matrix.database == 'mysqli'
         uses: actions/upload-artifact@v7
@@ -116,7 +116,7 @@ jobs:
           cp -a "$pluginpath/amd/build" "$RUNNER_TEMP/picturecards-build"
           trap 'rm -rf "$pluginpath/amd/build"; cp -a "$RUNNER_TEMP/picturecards-build" "$pluginpath/amd/build"' EXIT
           cd "$pluginpath/amd"
-          npx grunt amd --max-lint-warnings 0
+          npx grunt amd --max-lint-warnings=0
       - run: moodle-plugin-ci phpunit --fail-on-warning
       - name: Behat
         id: behat
