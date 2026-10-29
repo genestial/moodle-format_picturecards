@@ -1,7 +1,8 @@
 // This file is part of Moodle - http://moodle.org/
 // Licensed under the GNU GPL v3 or later: http://www.gnu.org/copyleft/gpl.html
 
-/** Live preview for the course colour palette.
+/**
+ * Live preview for the course colour palette.
  * @module format_picturecards/palette
  */
 export const init = () => {

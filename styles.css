@@ -39,6 +39,8 @@
 .format-picturecards .format-picturecards-course-hero h1 {
     margin: 0;
     color: #fff;
+    /* Modern CSS math functions are supported by target browsers. */
+    /* stylelint-disable-next-line csstree/validator */
     font-size: clamp(1.6rem, 3vw, 2.3rem);
     font-weight: 700;
 }
@@ -46,7 +48,7 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page-h
     display: none;
 }
 body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page-header
-    .page-context-header:not(:has(.page-header-image, .header-button-group)) {
+.page-context-header:not(:has(.page-header-image, .header-button-group)) {
     display: none;
 }
 body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.drawers .main-inner {
@@ -150,8 +152,8 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     line-height: 1.25;
     margin: 0;
 }
-.format-picturecards .single-section > ul > .course-section .section-item >
-    .format-picturecards-topic-cover + .course-section-header {
+.format-picturecards .single-section > ul > .course-section
+.section-item > .format-picturecards-topic-cover + .course-section-header {
     padding: 22px 26px;
     margin: -52px 24px 24px;
 }
@@ -211,14 +213,15 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     display: flex;
     flex-direction: column;
 }
-.format-picturecards .format-picturecards-course-body:not(.format-picturecards-has-topiccards) > .format-picturecards-course-toolbar {
+.format-picturecards
+.format-picturecards-course-body:not(.format-picturecards-has-topiccards) > .format-picturecards-course-toolbar {
     order: -1;
 }
 .format-picturecards .format-picturecards-course-toolbar-holder {
     list-style: none;
 }
 .format-picturecards .format-picturecards-has-topiccards:not(.format-picturecards-list)
-    .course-section.format-picturecards-carded-section {
+.course-section.format-picturecards-carded-section {
     display: none;
 }
 .format-picturecards .format-picturecards-has-topiccards:not(.format-picturecards-list) .section-collapsemenu {
@@ -229,6 +232,8 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
 }
 .format-picturecards .format-picturecards-topic-grid {
     display: grid;
+    /* Modern CSS math functions are supported by target browsers. */
+    /* stylelint-disable-next-line csstree/validator */
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: 20px;
     margin-bottom: 24px;
@@ -391,7 +396,11 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     border-radius: 0;
 }
 .format-picturecards .course-content ul[data-for="cmlist"] {
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     display: grid !important;
+    /* Modern CSS math functions are supported by target browsers. */
+    /* stylelint-disable-next-line csstree/validator */
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
     gap: 20px;
     align-items: stretch;
@@ -452,7 +461,8 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
 .format-picturecards .format-picturecards-media.format-picturecards-media-default {
     background: var(--picturecards-palette-colour, #173e63);
 }
-.format-picturecards .course-section:not([data-number="0"]) .format-picturecards-media.format-picturecards-media-default .activityicon {
+.format-picturecards .course-section:not([data-number="0"])
+.format-picturecards-media.format-picturecards-media-default .activityicon {
     filter: brightness(0) invert(1);
 }
 .format-picturecards .format-picturecards-media.format-picturecards-media-icon {
@@ -497,6 +507,8 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     text-decoration: underline;
 }
 .format-picturecards .format-picturecards-tile .activitytitle.position-relative {
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     position: static !important;
 }
 .format-picturecards .format-picturecards-tile .activity-completion,
@@ -505,17 +517,24 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     position: relative;
     z-index: 2;
 }
-.format-picturecards .format-picturecards-tile .activity-grid > :not(.activity-icon):not(.activity-name-area):not(.activity-actions) {
+.format-picturecards .format-picturecards-tile
+.activity-grid > :not(.activity-icon):not(.activity-name-area):not(.activity-actions) {
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     margin: 0 16px 12px !important;
     max-width: calc(100% - 32px);
 }
 .format-picturecards .format-picturecards-tile .activity-completion {
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     margin-top: auto !important;
 }
 .format-picturecards .format-picturecards-tile .activity-actions {
     position: absolute;
     inset-inline-end: 8px;
     top: 8px;
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     margin: 0 !important;
     background: #fff;
     border-radius: 8px;
@@ -624,7 +643,7 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     padding-top: 26px;
 }
 .format-picturecards .course-content .course-section[data-number="0"] .section-item
-    .course-section-header:has(.icons-collapse-expand) ~ .course-content-item-content > [data-for="sectioninfo"] {
+.course-section-header:has(.icons-collapse-expand) ~ .course-content-item-content > [data-for="sectioninfo"] {
     padding-left: 0;
 }
 .format-picturecards .course-section[data-number="0"] .section_goto {
@@ -639,6 +658,8 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
 }
 .format-picturecards .course-content .course-section[data-number="0"] ul[data-for="cmlist"],
 .format-picturecards .course-content.format-picturecards-list .course-section[data-number="0"] ul[data-for="cmlist"] {
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     display: flex !important;
     flex-wrap: wrap;
     grid-template-columns: none;
@@ -668,6 +689,8 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     position: static;
 }
 .format-picturecards .course-section[data-number="0"] .activitytitle.position-relative {
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     position: static !important;
 }
 .format-picturecards .course-section[data-number="0"] .activityname a.aalink:not(.quickeditlink)::after {
@@ -685,7 +708,7 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
 }
 .format-picturecards .course-section[data-number="0"] .format-picturecards-tile > .activity-grid,
 .format-picturecards .course-content.format-picturecards-list .course-section[data-number="0"]
-    .format-picturecards-tile > .activity-grid:not(.noname-grid) {
+.format-picturecards-tile > .activity-grid:not(.noname-grid) {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -693,7 +716,7 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
 }
 .format-picturecards .course-section[data-number="0"] .format-picturecards-media.activityiconcontainer,
 .format-picturecards .course-content.format-picturecards-list .course-section[data-number="0"]
-    .format-picturecards-media.activityiconcontainer {
+.format-picturecards-media.activityiconcontainer {
     position: static;
     width: 32px;
     height: 32px;
@@ -726,7 +749,7 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
 }
 .format-picturecards .course-section[data-number="0"] .format-picturecards-customicon,
 .format-picturecards .course-content.format-picturecards-list .course-section[data-number="0"]
-    .format-picturecards-customicon {
+.format-picturecards-customicon {
     font-size: 1.1rem;
 }
 .format-picturecards .course-section[data-number="0"] .format-picturecards-tile .activity-name-area {
@@ -741,8 +764,10 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
 .format-picturecards .course-section[data-number="0"] .format-picturecards-activity-type {
     display: none;
 }
-.format-picturecards .course-section[data-number="0"] .format-picturecards-tile .activity-grid >
-    :not(.activity-icon):not(.activity-name-area):not(.activity-actions) {
+.format-picturecards .course-section[data-number="0"] .format-picturecards-tile
+.activity-grid > :not(.activity-icon):not(.activity-name-area):not(.activity-actions) {
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     margin: 0 8px 0 0 !important;
     max-width: none;
 }
@@ -759,7 +784,7 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     border-radius: 50%;
 }
 .format-picturecards .course-section[data-number="0"] .activity:not(.modtype_subsection):not(.modtype_label)
-    .activity-item:hover {
+.activity-item:hover {
     transform: none;
 }
 .format-picturecards .format-picturecards-topic-navigation {
@@ -775,6 +800,8 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     align-items: center;
     gap: 12px;
     min-height: 68px;
+    /* Modern CSS math functions are supported by target browsers. */
+    /* stylelint-disable-next-line csstree/validator */
     max-width: min(48%, 330px);
     padding: 12px 16px;
     border: 1px solid var(--picturecards-border);
@@ -829,19 +856,39 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
 }
 .format-picturecards [hidden],
 .format-picturecards-drawer [hidden] {
+    /* Override Moodle and Bootstrap utility styles for this state. */
+    /* stylelint-disable-next-line declaration-no-important */
     display: none !important;
 }
 /* These selectors also apply to the modal appended outside the course content. */
-.format-picturecards-colour-blue { --picturecards-colour: #0f6cbf; }
-.format-picturecards-colour-teal { --picturecards-colour: #0f7a6b; }
-.format-picturecards-colour-plum { --picturecards-colour: #a4296a; }
-.format-picturecards-colour-orange { --picturecards-colour: #c25100; }
-.format-picturecards-colour-violet { --picturecards-colour: #5b40ff; }
-.format-picturecards-colour-slate { --picturecards-colour: #3d5a80; }
-.format-picturecards-colour-brown { --picturecards-colour: #8d3d1b; }
-.format-picturecards-colour-charcoal { --picturecards-colour: #1d2125; }
+.format-picturecards-colour-blue {
+    --picturecards-colour: #0f6cbf;
+}
+.format-picturecards-colour-teal {
+    --picturecards-colour: #0f7a6b;
+}
+.format-picturecards-colour-plum {
+    --picturecards-colour: #a4296a;
+}
+.format-picturecards-colour-orange {
+    --picturecards-colour: #c25100;
+}
+.format-picturecards-colour-violet {
+    --picturecards-colour: #5b40ff;
+}
+.format-picturecards-colour-slate {
+    --picturecards-colour: #3d5a80;
+}
+.format-picturecards-colour-brown {
+    --picturecards-colour: #8d3d1b;
+}
+.format-picturecards-colour-charcoal {
+    --picturecards-colour: #1d2125;
+}
 .format-picturecards-drawer .modal-dialog {
     margin: 0 0 0 auto;
+    /* Modern CSS math functions are supported by target browsers. */
+    /* stylelint-disable-next-line csstree/validator */
     width: min(100%, 420px);
     max-width: 420px;
     height: 100%;
@@ -970,13 +1017,14 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
     gap: 6px;
     align-items: center;
 }
+
 @media (max-width: 575px) {
     .format-picturecards .format-picturecards-topic-cover {
         height: 160px;
     }
     .format-picturecards .course-content .format-picturecards-topic-cover + .course-section-header,
-    .format-picturecards .single-section > ul > .course-section .section-item >
-        .format-picturecards-topic-cover + .course-section-header {
+    .format-picturecards .single-section > ul > .course-section
+    .section-item > .format-picturecards-topic-cover + .course-section-header {
         margin: -32px 12px 20px;
         padding: 16px;
     }
@@ -1004,10 +1052,13 @@ body#page-course-view-picturecards:has(.format-picturecards-course-hero) #page.d
         padding: 10px;
     }
 }
+
 @media (prefers-reduced-motion: reduce) {
     .format-picturecards .course-content .activity-item,
     .format-picturecards .format-picturecards-topic-card {
         transition: none;
+        /* Override Moodle and Bootstrap utility styles for this state. */
+        /* stylelint-disable-next-line declaration-no-important */
         transform: none !important;
     }
 }
