@@ -31,7 +31,11 @@ require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
  * @package format_picturecards
  * @copyright 2026 GENESTIAL
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \backup_format_picturecards_plugin
+ * @covers \restore_format_picturecards_plugin
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\backup_format_picturecards_plugin::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\restore_format_picturecards_plugin::class)]
 final class backup_restore_test extends \advanced_testcase {
     /**
      * A course backup remaps both kinds of images to new contexts and IDs.

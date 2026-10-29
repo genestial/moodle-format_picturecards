@@ -21,7 +21,9 @@ namespace format_picturecards;
  * @package format_picturecards
  * @copyright 2026 GENESTIAL
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \format_picturecards
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\format_picturecards::class)]
 final class palette_test extends \advanced_testcase {
     /**
      * Site changes propagate to inheriting courses, while overrides remain stable.
