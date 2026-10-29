@@ -20,6 +20,7 @@ use core_privacy\local\request\approved_contextlist;
 use core_privacy\local\request\approved_userlist;
 use core_privacy\local\request\userlist;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(provider::class)]
 /**
  * Privacy ownership and isolation tests.
  * @package format_picturecards
@@ -27,7 +28,6 @@ use core_privacy\local\request\userlist;
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers \format_picturecards\privacy\provider
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(provider::class)]
 final class provider_test extends \core_privacy\tests\provider_testcase {
     /**
      * Discover, export and delete only approved users' data.

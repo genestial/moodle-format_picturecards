@@ -1,11 +1,11 @@
 {{!
     @template format_picturecards/appearance_controls
     Progressive enhancement for a core Moodle form; native fields remain the source of truth.
-    Example context (json): {"cmid": 1, "icons": [], "colours": [], "title": "Activity"}
+    Example context (json): {"cmid": 1, "icons": [], "colours": [], "title": "Activity", "defaulticon": "example.png"}
 }}
 <div class="format-picturecards-appearance-controls" data-picturecards-form="{{cmid}}">
     <div class="format-picturecards-preview" aria-hidden="true">
-        <img class="format-picturecards-preview-image" {{#imageurl}}src="{{imageurl}}"{{/imageurl}} alt="" {{^imageurl}}hidden{{/imageurl}}>
+        <img class="format-picturecards-preview-image" src="{{#imageurl}}{{imageurl}}{{/imageurl}}{{^imageurl}}data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=={{/imageurl}}" data-image-present="{{#imageurl}}1{{/imageurl}}" alt="" {{^imageurl}}hidden{{/imageurl}}>
         <img class="format-picturecards-preview-default" src="{{defaulticon}}" alt="">
         <i class="format-picturecards-preview-icon" hidden></i>
         <span class="format-picturecards-focuspoint" hidden></span>

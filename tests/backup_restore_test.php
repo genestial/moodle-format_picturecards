@@ -25,6 +25,8 @@ global $CFG;
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\backup_format_picturecards_plugin::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\restore_format_picturecards_plugin::class)]
 /**
  * Verify course-format data and files follow restored sections and modules.
  *
@@ -34,8 +36,6 @@ require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
  * @covers \backup_format_picturecards_plugin
  * @covers \restore_format_picturecards_plugin
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\backup_format_picturecards_plugin::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\restore_format_picturecards_plugin::class)]
 final class backup_restore_test extends \advanced_testcase {
     /**
      * A course backup remaps both kinds of images to new contexts and IDs.

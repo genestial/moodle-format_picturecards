@@ -20,6 +20,7 @@ use context_course;
 use format_picturecards\local\activity_media;
 
 
+#[\PHPUnit\Framework\Attributes\CoversClass(activity_media::class)]
 /**
  * Unit tests for {@see activity_media}.
  *
@@ -28,7 +29,6 @@ use format_picturecards\local\activity_media;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers \format_picturecards\local\activity_media
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(activity_media::class)]
 final class activity_media_test extends \advanced_testcase {
     /**
      * Verify normalise media type.

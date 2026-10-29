@@ -18,6 +18,7 @@ namespace format_picturecards\form;
 
 use format_picturecards\local\activity_media;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(appearance::class)]
 /**
  * Test appearance submissions at the dynamic form permission boundary.
  * @package format_picturecards
@@ -25,7 +26,6 @@ use format_picturecards\local\activity_media;
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers \format_picturecards\form\appearance
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(appearance::class)]
 final class appearance_test extends \advanced_testcase {
     /**
      * An editor can save real appearance settings through the form.
