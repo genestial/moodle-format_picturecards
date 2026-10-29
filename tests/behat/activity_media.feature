@@ -37,7 +37,7 @@ Feature: Teachers customise activity cards
     And I log out
     And I am on the "PictureCards demo" course page logged in as student1
     And ".format-picturecards-topic-card" "css_element" should exist
-    When I click on "Topic 1" "link" in the ".format-picturecards-topic-card" "css_element"
+    When I click on ".format-picturecards-topic-card:first-child h3 a" "css_element"
     And ".format-picturecards-customicon .fa-book-open" "css_element" should exist
 
   Scenario: Upload and replace an image, then return to a default icon
