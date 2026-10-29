@@ -18,7 +18,9 @@
 | Repository and tracker | [Public repository and issue tracker](https://github.com/genestial/moodle-format_picturecards) created; private vulnerability reporting enabled. |
 | Marketplace listing, additional support contacts and cleared screenshots | Not yet prepared. |
 
-The initial GitHub CI runs found language-string ordering, coverage annotations and Mustache HTML validation issues. A later run passed these checks and the JavaScript and CSS linters, then reported that the packaged JavaScript differs from Moodle's generated files. Rebuild the assets with the Moodle toolchain and repeat hosted checks.
+The initial GitHub CI runs found language-string ordering, coverage annotations and Mustache HTML validation issues. A later run passed these checks and the JavaScript and CSS linters, then reported that the packaged JavaScript differed from Moodle's generated files. The assets have since been rebuilt with Moodle's toolchain; hosted checks must be repeated.
+
+Hosted run [40937748851](https://github.com/genestial/moodle-format_picturecards/actions/runs/40937748851) passed PHPUnit with warnings treated as failures on 27 Moodle 4.5–5.2/PHP/database combinations before its browser scenarios failed. The generated assets from its Moodle 5.3 job were retrieved using the artifact checksum and committed; the browser fixtures were corrected after inspecting the failure output. These results do not establish that the changed candidate or the full matrix has passed. The downloaded build artifact SHA-256 was `c52833a905e1263a4fd9f5cb61f35848cf44de6caa85ac1094122265b1365b31`.
 
 Moodle's [release schedule](https://moodledev.io/general/releases) shows that Moodle 5.0 security support ended on 5 October 2026. It remains a requested compatibility target, but site administrators should use a maintained Moodle version. The current Marketplace submission pages could not be retrieved via web extraction on 29 October 2026; the 24 October policy research baseline remains provisional until the live pages can be reviewed.
 
