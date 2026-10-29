@@ -4,6 +4,8 @@ PictureCards (`format_picturecards`) displays topics with image banners and acti
 
 Copyright © 2026 GENESTIAL. Free software under GNU GPL v3 or later; see [LICENSE](LICENSE).
 
+Source: https://github.com/genestial/moodle-format_picturecards. Report bugs and feature requests through the [issue tracker](https://github.com/genestial/moodle-format_picturecards/issues). For suspected security vulnerabilities, follow the private reporting instructions in [SECURITY.md](SECURITY.md).
+
 ## Compatibility
 
 The current release candidate targets Moodle **5.3**. Support for Moodle 4.5 through 5.2 is being developed and verified. **0.1.0-rc1** is unreleased: consult [release evidence](docs/RELEASE_EVIDENCE.md) for actual test coverage. No extra plugins, paid services, API keys, external fonts or administrator build steps. Browser use only; Moodle App support is not claimed. Boost is the initial test theme.
