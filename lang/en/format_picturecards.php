@@ -56,6 +56,7 @@ $string['findiconplaceholder'] = 'Try reading, discussion or idea';
 $string['focusinstructions'] = 'Click the preview or enter horizontal and vertical percentages below to choose what stays visible when the image is cropped.';
 $string['focusx'] = 'Horizontal focus (%)';
 $string['focusy'] = 'Vertical focus (%)';
+$string['hiddensections'] = 'Hidden sections';
 $string['hiddensections_help'] = 'Choose whether students can see hidden section names or whether hidden sections are not shown.';
 $string['hidefromothers'] = 'Hide';
 $string['iconlegend'] = 'Built-in icons';
