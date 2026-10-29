@@ -86,7 +86,7 @@ jobs:
       - run: moodle-plugin-ci phpunit --fail-on-warning
       - name: Behat
         id: behat
-        run: moodle-plugin-ci behat --profile chrome --scss-deprecations
+        run: moodle-plugin-ci behat --profile chrome --start-servers --scss-deprecations
       - uses: actions/upload-artifact@v7
         if: ${{ failure() && steps.behat.outcome == 'failure' }}
         with:

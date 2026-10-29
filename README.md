@@ -49,7 +49,7 @@ Activity/section/course deletion removes plugin records and files via observers 
 
 ## Development and release
 
-Use a public repository named `moodle-format_picturecards`, with this directory's contents at its root. CI targets `MOODLE_503_STABLE`, PHP 8.3/8.4, PostgreSQL 17, MariaDB 11.4 and MySQL 8.4. Configured jobs are not evidence that every combination has run.
+The public repository has the plugin files at its root. The release-testing CI matrix covers Moodle 4.5 through 5.3, compatible PHP versions, PostgreSQL 17, MariaDB 11.4 and MySQL 8.4. Configured jobs are not evidence that every combination has passed.
 
 Run tests only against isolated database prefixes and file stores. In a Moodle test checkout with development dependencies installed:
 
@@ -58,4 +58,4 @@ php public/admin/tool/phpunit/cli/init.php --disable-composer
 vendor/bin/phpunit --testsuite format_picturecards_testsuite
 ```
 
-See [reviewer tests](docs/REVIEWER_TESTS.md), [release evidence](docs/RELEASE_EVIDENCE.md), [changelog](CHANGES.md) and [listing draft](docs/MARKETPLACE.md). Add public source/issue-tracker URLs and support/security contacts before submission. This candidate has not been submitted, accepted or published by Moodle.
+See [reviewer tests](docs/REVIEWER_TESTS.md), [release evidence](docs/RELEASE_EVIDENCE.md), [changelog](CHANGES.md) and [listing draft](docs/MARKETPLACE.md). This candidate has not been submitted, accepted or published by Moodle.

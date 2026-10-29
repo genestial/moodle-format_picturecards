@@ -25,8 +25,8 @@ Images and File API metadata may contain personal data. Activity images live in 
 
 ## Before submission
 
-- Add public repository (`moodle-format_picturecards`) and public issue-tracker URLs.
-- Add monitored support and private security-reporting contacts.
+- Repository and public issue tracker: https://github.com/genestial/moodle-format_picturecards and https://github.com/genestial/moodle-format_picturecards/issues.
+- Confirm the issue tracker is monitored for support; private vulnerability reporting is enabled and described in SECURITY.md.
 - Attach cleared course, topic-picture picker, activity-media form and administrator-setting screenshots with image rights confirmed.
 - Resolve required failed/unverified criteria in the release matrix.
 - Check current policies and component/name availability; review provider terms personally.

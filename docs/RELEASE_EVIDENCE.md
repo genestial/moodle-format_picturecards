@@ -17,6 +17,8 @@
 | Repository and tracker | [Public repository and issue tracker](https://github.com/genestial/moodle-format_picturecards) created; private vulnerability reporting enabled. |
 | Marketplace listing, additional support contacts and cleared screenshots | Not yet prepared. |
 
-The initial GitHub CI run found language-string ordering and coverage annotation issues. Those were corrected on the development branch for the current coding standard, but the Moodle 4.5 CI coding standard still reports missing coverage information. A subsequent hosted run also found Mustache HTML validation warnings across Moodle 5.0–5.3. These checks remain failing and require fixes and a new hosted run.
+The initial GitHub CI runs found language-string ordering, coverage annotations and Mustache HTML validation issues. A later run passed the 4.5 coding-standard check and reached further template and frontend checks; fixes for the newly reported issues have been committed. A fresh hosted run is required to verify those fixes and expose later check results.
+
+Moodle's [release schedule](https://moodledev.io/general/releases) shows that Moodle 5.0 security support ended on 5 October 2026. It remains a requested compatibility target, but site administrators should use a maintained Moodle version. The current Marketplace submission pages could not be retrieved via web extraction on 29 October 2026; the 24 October policy research baseline remains provisional until the live pages can be reviewed.
 
 The proposed CI matrix changes minimum-version metadata only inside the CI test checkout; the release metadata remains limited to Moodle 5.3 until the renamed plugin has been verified. No Marketplace submission has been made.
