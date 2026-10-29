@@ -14,6 +14,7 @@
 | Renamed PictureCards on Moodle 5.0.11 build 20261005, PHP 8.3.36 and MySQL 8.4.3 | PHPUnit: 31 tests, 124 assertions passed with temporary test-only minimum metadata. |
 | Renamed PictureCards on Moodle 5.1.8+ and 5.2.4+ build 20261021, PHP 8.3.36 and MySQL 8.4.3 | PHPUnit: 31 tests, 124 assertions passed on each branch with temporary test-only minimum metadata. |
 | Local prototype migration | Two isolated migration tests passed (20 assertions). Three local courses were migrated after a database backup; their media record counts, image content hashes and owners, and site palette settings were checked against the originals. |
+| Built-in activity palette contrast | Calculated white icon contrast after the plugin's darkening rule: minimum ratios Ocean 4.93:1, Forest 4.98:1, Sunset 4.45:1, Slate 4.41:1 and Bright 5.44:1. This calculation does not replace keyboard, screen-reader or visual accessibility testing. |
 | Release ZIP, other PHP and database combinations, Behat and accessibility | Not yet verified. |
 | Repository and tracker | [Public repository and issue tracker](https://github.com/genestial/moodle-format_picturecards) created; private vulnerability reporting enabled. |
 | Marketplace listing, additional support contacts and cleared screenshots | Not yet prepared. |
@@ -21,6 +22,8 @@
 The initial GitHub CI runs found language-string ordering, coverage annotations and Mustache HTML validation issues. A later run passed these checks and the JavaScript and CSS linters, then reported that the packaged JavaScript differed from Moodle's generated files. The assets have since been rebuilt with Moodle's toolchain; hosted checks must be repeated.
 
 Hosted run [40937748851](https://github.com/genestial/moodle-format_picturecards/actions/runs/40937748851) passed PHPUnit with warnings treated as failures on 27 Moodle 4.5–5.2/PHP/database combinations before its browser scenarios failed. The generated assets from its Moodle 5.3 job were retrieved using the artifact checksum and committed; the browser fixtures were corrected after inspecting the failure output. These results do not establish that the changed candidate or the full matrix has passed. The downloaded build artifact SHA-256 was `c52833a905e1263a4fd9f5cb61f35848cf44de6caa85ac1094122265b1365b31`.
+
+The next hosted browser run exposed a real activity-editing failure: calling the activity form's `set_data()` a second time re-ran its preprocessing with incomplete defaults. The callback now sets only the PictureCards QuickForm defaults; a new browser run must verify the correction. The upload scenarios also require Moodle's `_file_upload` test tag.
 
 Moodle's [release schedule](https://moodledev.io/general/releases) shows that Moodle 5.0 security support ended on 5 October 2026. It remains a requested compatibility target, but site administrators should use a maintained Moodle version. The current Marketplace submission pages could not be retrieved via web extraction on 29 October 2026; the 24 October policy research baseline remains provisional until the live pages can be reviewed.
 

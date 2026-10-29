@@ -1,4 +1,4 @@
-@format @format_picturecards @javascript
+@format @format_picturecards @javascript @_file_upload
 Feature: Teachers customise activity cards
   In order to distinguish activities visually
   As an editing teacher
