@@ -8,13 +8,13 @@ Source: https://github.com/genestial/moodle-format_picturecards. Report bugs and
 
 ## Compatibility
 
-The current release candidate targets Moodle **5.3**. Support for Moodle 4.5 through 5.2 is being developed and verified. **0.1.0-rc1** is unreleased: consult [release evidence](docs/RELEASE_EVIDENCE.md) for actual test coverage. No extra plugins, paid services, API keys, external fonts or administrator build steps. Browser use only; Moodle App support is not claimed. Boost is the initial test theme.
+The current release candidate targets Moodle **4.5 through 5.3**. The first full automated matrix passed with test-only compatibility metadata; the candidate with its updated metadata and additional tests is still being verified. Moodle 5.0 no longer receives security updates; use a maintained Moodle version where possible. **0.1.0-rc1** is unreleased: consult [release evidence](docs/RELEASE_EVIDENCE.md) for actual test coverage. No extra plugins, paid services, API keys, external fonts or administrator build steps. Browser use only; Moodle App support is not claimed. Boost is the initial test theme.
 
 ## Install
 
 1. Back up the site and test on staging.
-2. Install the ZIP through Site administration → Plugins → Install plugins, or extract its `picturecards/` directory into `{moodleroot}/public/course/format/picturecards`.
-3. Visit Site administration → Notifications, or run `php admin/cli/upgrade.php` from the Moodle root above `public/`.
+2. Install the ZIP through Site administration → Plugins → Install plugins, or extract its `picturecards/` directory into the site's course format directory: `{moodleroot}/course/format/` on Moodle 4.5–5.0, or `{moodleroot}/public/course/format/` on Moodle 5.1–5.3.
+3. Visit Site administration → Notifications, or run `php admin/cli/upgrade.php` from the Moodle root.
 4. Choose **PictureCards format** in a course's settings.
 
 No Composer/npm commands are required on the receiving site.
