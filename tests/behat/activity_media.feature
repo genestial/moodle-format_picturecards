@@ -17,8 +17,8 @@ Feature: Teachers customise activity cards
       | teacher1 | SUB    | editingteacher |
       | student1 | SUB    | student        |
     And the following "activities" exist:
-      | activity | course | name          | section | idnumber |
-      | page     | SUB    | Reading notes | 1       | reading  |
+      | activity | course | name          | section | idnumber | content       | contentformat |
+      | page     | SUB    | Reading notes | 1       | reading  | Reading notes | 1             |
 
   Scenario: Custom icons persist and remain present after AJAX editing
     Given I am on the "Reading notes" "page activity editing" page logged in as teacher1
@@ -57,7 +57,7 @@ Feature: Teachers customise activity cards
   Scenario: Choose a picture for a topic independently of activity cards
     Given I am on the "PictureCards demo" course page logged in as teacher1
     And I turn editing mode on
-    When I click on "Topic appearance" "button" in the "[data-for='section'][data-number='1']" "css_element"
+    When I click on "Topic appearance" "button" in the "li[data-for='section'][data-number='1']" "css_element"
     And I upload "course/format/picturecards/tests/fixtures/badge.png" file to "Topic picture" filemanager
     And I press "Save changes"
     Then ".format-picturecards-topic-cover img" "css_element" should exist

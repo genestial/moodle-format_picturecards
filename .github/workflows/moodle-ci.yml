@@ -82,25 +82,6 @@ jobs:
       - run: moodle-plugin-ci validate
       - run: moodle-plugin-ci savepoints
       - run: moodle-plugin-ci mustache
-      - name: Generate canonical build for inspection
-        if: matrix.target.moodle == 'MOODLE_503_STABLE' && matrix.target.php == '8.3' && matrix.database == 'mysqli'
-        run: |
-          pluginpath="$GITHUB_WORKSPACE/moodle/public/course/format/picturecards"
-          cp -a "$pluginpath/amd/build" "$RUNNER_TEMP/picturecards-original-build"
-          cd "$pluginpath/amd"
-          npx grunt amd --max-lint-warnings=0
-      - name: Upload canonical build for inspection
-        if: matrix.target.moodle == 'MOODLE_503_STABLE' && matrix.target.php == '8.3' && matrix.database == 'mysqli'
-        uses: actions/upload-artifact@v7
-        with:
-          name: picturecards-canonical-amd
-          path: moodle/public/course/format/picturecards/amd/build
-      - name: Restore distributed assets
-        if: matrix.target.moodle == 'MOODLE_503_STABLE' && matrix.target.php == '8.3' && matrix.database == 'mysqli'
-        run: |
-          pluginpath="$GITHUB_WORKSPACE/moodle/public/course/format/picturecards"
-          rm -rf "$pluginpath/amd/build"
-          cp -a "$RUNNER_TEMP/picturecards-original-build" "$pluginpath/amd/build"
       # Moodle 5.3 is the canonical build toolchain for distributed assets.
       - name: Verify distributed frontend assets
         if: matrix.target.moodle == 'MOODLE_503_STABLE'
