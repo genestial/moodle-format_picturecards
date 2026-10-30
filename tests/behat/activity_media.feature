@@ -93,6 +93,7 @@ Feature: Teachers customise activity cards
   Scenario: Learners can navigate the course on a narrow viewport
     Given I am on the "PictureCards demo" course page logged in as student1
     When I change viewport size to "425x750"
+    And I click on "Close course index" "button"
     And I click on "List" "button" in the ".format-picturecards-course-toolbar" "css_element"
     Then ".format-picturecards-course-toolbar [data-picturecards-layout='list'][aria-pressed='true']" "css_element" should exist
     When I click on "Tiles" "button" in the ".format-picturecards-course-toolbar" "css_element"
