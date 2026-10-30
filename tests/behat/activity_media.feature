@@ -10,8 +10,8 @@ Feature: Teachers customise activity cards
       | teacher1 | Teacher   | One      | teacher@example.com |
       | student1 | Student   | One      | student@example.com |
     And the following "courses" exist:
-      | fullname       | shortname | format   | numsections |
-      | PictureCards demo  | SUB       | picturecards | 2           |
+      | fullname          | shortname | format       | numsections | enablecompletion |
+      | PictureCards demo | SUB       | picturecards | 2           | 1                |
     And the following "course enrolments" exist:
       | user     | course | role           |
       | teacher1 | SUB    | editingteacher |
@@ -89,3 +89,26 @@ Feature: Teachers customise activity cards
     When I set the focus on the ".format-picturecards-topic-card:first-child h3 a" "css_element"
     And I press enter
     Then I should see "Reading notes"
+
+  Scenario: Learners can navigate the course on a narrow viewport
+    Given I am on the "PictureCards demo" course page logged in as student1
+    When I change viewport size to "425x750"
+    And I click on "List" "button" in the ".format-picturecards-course-toolbar" "css_element"
+    Then ".format-picturecards-course-toolbar [data-picturecards-layout='list'][aria-pressed='true']" "css_element" should exist
+    When I click on "Tiles" "button" in the ".format-picturecards-course-toolbar" "css_element"
+    And I click on ".format-picturecards-topic-card:first-child h3 a" "css_element"
+    Then I should see "Reading notes"
+
+  Scenario: Completion controls remain separate from the activity card link
+    Given the following "activity" exists:
+      | activity   | page             |
+      | course     | SUB              |
+      | section    | 1                |
+      | name       | Completable page |
+      | completion | 1                |
+    And I am on the "PictureCards demo" course page logged in as student1
+    When I click on ".format-picturecards-topic-card:first-child h3 a" "css_element"
+    Then the manual completion button of "Completable page" is displayed as "Mark as done"
+    When I toggle the manual completion state of "Completable page"
+    Then the manual completion button of "Completable page" is displayed as "Done"
+    And I should see "Reading notes"
