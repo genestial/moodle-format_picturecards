@@ -16,13 +16,14 @@
 
 namespace format_picturecards\local;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(topic_image::class)]
 /**
  * Cover selected topic pictures, cleanup and permission boundaries.
  * @package format_picturecards
  * @copyright 2026 GENESTIAL
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \format_picturecards\local\topic_image
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(topic_image::class)]
 final class topic_image_test extends \advanced_testcase {
     /**
      * A topic picture is independent of images attached to activities.

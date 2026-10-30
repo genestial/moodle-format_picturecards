@@ -25,12 +25,16 @@ global $CFG;
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\backup_format_picturecards_plugin::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\restore_format_picturecards_plugin::class)]
 /**
  * Verify course-format data and files follow restored sections and modules.
  *
  * @package format_picturecards
  * @copyright 2026 GENESTIAL
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \backup_format_picturecards_plugin
+ * @covers \restore_format_picturecards_plugin
  */
 final class backup_restore_test extends \advanced_testcase {
     /**
@@ -42,6 +46,16 @@ final class backup_restore_test extends \advanced_testcase {
         $this->setAdminUser();
         $CFG->backup_file_logger_level = \backup::LOG_NONE;
         $course = $this->getDataGenerator()->create_course(['format' => 'picturecards', 'numsections' => 1]);
+        course_get_format($course)->update_course_format_options([
+            'palette' => 'custom',
+            'palette1' => '#123456',
+            'palette2' => '#234567',
+            'palette3' => '#345678',
+            'palette4' => '#456789',
+            'palette5' => '#56789a',
+            'showtopiceyebrow' => 0,
+            'topiceyebrowword' => 'Week',
+        ]);
         $page = $this->getDataGenerator()->create_module('page', ['course' => $course->id, 'section' => 1]);
         $section = get_fast_modinfo($course)->get_section_info(1);
         $png = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a3WQAAAAASUVORK5CYII=');
@@ -92,6 +106,12 @@ final class backup_restore_test extends \advanced_testcase {
         $restore->destroy();
 
         $this->assertSame('picturecards', $DB->get_field('course', 'format', ['id' => $newcourseid]));
+        $options = course_get_format($newcourseid)->get_format_options();
+        $this->assertSame('custom', $options['palette']);
+        $this->assertSame('#123456', $options['palette1']);
+        $this->assertSame('#56789a', $options['palette5']);
+        $this->assertEquals(0, $options['showtopiceyebrow']);
+        $this->assertSame('Week', $options['topiceyebrowword']);
         $newsection = get_fast_modinfo($newcourseid)->get_section_info(1);
         $this->assertNotEquals($section->id, $newsection->id);
         $restoredfiles = get_file_storage()->get_area_files(

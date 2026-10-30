@@ -18,13 +18,14 @@ namespace format_picturecards;
 
 use format_picturecards\local\activity_media;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\format_picturecards\output\renderer::class)]
 /**
  * Verify real rendering paths, including AJAX fragments.
  * @package format_picturecards
  * @copyright 2026 GENESTIAL
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \format_picturecards\output\renderer
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\format_picturecards\output\renderer::class)]
 final class output_test extends \advanced_testcase {
     /**
      * The topic card groups visible activities and respects a custom topic label.

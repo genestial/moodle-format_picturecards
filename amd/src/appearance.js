@@ -37,7 +37,7 @@ export const init = cmid => {
         const mode = field('mediatype').value;
         const colour = field('colour').value;
         preview.className = 'format-picturecards-preview' + (mode === 'icon' ? ' format-picturecards-colour-' + colour : '');
-        image.hidden = mode !== 'image' || !image.getAttribute('src');
+        image.hidden = mode !== 'image' || image.dataset.imagePresent !== '1';
         icon.hidden = mode !== 'icon';
         const selected = controls.querySelector('[data-picturecards-icon="' + field('iconkey').value + '"]');
         icon.className = 'format-picturecards-preview-icon ' + (selected?.dataset.iconClass || 'fa-solid fa-shapes');

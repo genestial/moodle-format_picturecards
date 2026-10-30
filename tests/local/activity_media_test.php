@@ -20,14 +20,15 @@ use context_course;
 use format_picturecards\local\activity_media;
 
 
+#[\PHPUnit\Framework\Attributes\CoversClass(activity_media::class)]
 /**
  * Unit tests for {@see activity_media}.
  *
  * @package    format_picturecards
  * @copyright  2026 GENESTIAL
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \format_picturecards\local\activity_media
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(activity_media::class)]
 final class activity_media_test extends \advanced_testcase {
     /**
      * Verify normalise media type.
@@ -138,6 +139,44 @@ final class activity_media_test extends \advanced_testcase {
         $this->setUser($user);
         $this->expectException(\required_capability_exception::class);
         activity_media::save($page->cmid, 'icon', 'lab', 0);
+    }
+
+    /**
+     * A direct image request must not reveal an activity hidden from the learner.
+     */
+    public function test_hidden_activity_image_is_denied(): void {
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        $course = $this->getDataGenerator()->create_course(['format' => 'picturecards']);
+        $page = $this->getDataGenerator()->create_module('page', [
+            'course' => $course->id,
+            'visible' => 0,
+        ]);
+        get_file_storage()->create_file_from_string([
+            'contextid' => \context_module::instance($page->cmid)->id,
+            'component' => 'format_picturecards', 'filearea' => 'activityimage', 'itemid' => 0,
+            'filepath' => '/', 'filename' => 'hidden.png',
+        ], base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a3WQAAAAASUVORK5CYII='));
+        $student = $this->getDataGenerator()->create_user();
+        $this->getDataGenerator()->enrol_user($student->id, $course->id, 'student');
+        $this->setUser($student);
+        $cm = get_coursemodule_from_id('page', $page->cmid, $course->id, false, MUST_EXIST);
+        set_error_handler(static function (int $code, string $message): bool {
+            return str_contains($message, 'Cannot modify header information');
+        });
+        try {
+            $this->expectException(\moodle_exception::class);
+            format_picturecards_pluginfile(
+                $course,
+                $cm,
+                \context_module::instance($cm->id),
+                'activityimage',
+                [0, 'hidden.png'],
+                false
+            );
+        } finally {
+            restore_error_handler();
+        }
     }
 
     /**

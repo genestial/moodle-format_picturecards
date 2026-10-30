@@ -16,11 +16,13 @@
 
 namespace format_picturecards;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\format_picturecards::class)]
 /**
  * Course palette inheritance and override tests.
  * @package format_picturecards
  * @copyright 2026 GENESTIAL
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \format_picturecards
  */
 final class palette_test extends \advanced_testcase {
     /**

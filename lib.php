@@ -169,7 +169,7 @@ class format_picturecards extends core_courseformat\base {
                 'hiddensections' => [
                     'label' => new lang_string('hiddensections'),
                     'help' => 'hiddensections',
-                    'help_component' => 'moodle',
+                    'help_component' => 'format_picturecards',
                     'element_type' => 'select',
                     'element_attributes' => [
                         [
@@ -584,7 +584,8 @@ function format_picturecards_coursemodule_definition_after_data(moodleform_mod $
         \format_picturecards\local\activity_media::file_manager_options($modcontext)
     );
     $data->format_picturecards_image_draftitemid = $draftitemid;
-    $formwrapper->set_data($data);
+    // Set only our fields without re-running the activity's data_preprocessing().
+    $mform->setDefaults((array)$data);
 }
 
 /**

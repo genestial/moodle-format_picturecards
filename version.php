@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version   = 2026102900;
-$plugin->requires  = 2026100500;
+$plugin->requires  = 2024100700;
 $plugin->component = 'format_picturecards';
-$plugin->supported = [503, 503];
+$plugin->supported = [405, 503];
 $plugin->release   = '0.1.0-rc1';
 $plugin->maturity  = MATURITY_RC;

@@ -1,4 +1,4 @@
-@format @format_picturecards @javascript
+@format @format_picturecards @javascript @_file_upload
 Feature: Teachers customise activity cards
   In order to distinguish activities visually
   As an editing teacher
@@ -10,15 +10,15 @@ Feature: Teachers customise activity cards
       | teacher1 | Teacher   | One      | teacher@example.com |
       | student1 | Student   | One      | student@example.com |
     And the following "courses" exist:
-      | fullname       | shortname | format   | numsections |
-      | PictureCards demo  | SUB       | picturecards | 2           |
+      | fullname          | shortname | format       | numsections | enablecompletion |
+      | PictureCards demo | SUB       | picturecards | 2           | 1                |
     And the following "course enrolments" exist:
       | user     | course | role           |
       | teacher1 | SUB    | editingteacher |
       | student1 | SUB    | student        |
     And the following "activities" exist:
-      | activity | course | name          | section | idnumber |
-      | page     | SUB    | Reading notes | 1       | reading  |
+      | activity | course | name          | section | idnumber | content       | contentformat |
+      | page     | SUB    | Reading notes | 1       | reading  | Reading notes | 1             |
 
   Scenario: Custom icons persist and remain present after AJAX editing
     Given I am on the "Reading notes" "page activity editing" page logged in as teacher1
@@ -37,7 +37,7 @@ Feature: Teachers customise activity cards
     And I log out
     And I am on the "PictureCards demo" course page logged in as student1
     And ".format-picturecards-topic-card" "css_element" should exist
-    When I click on "Topic 1" "link" in the ".format-picturecards-topic-card" "css_element"
+    When I click on ".format-picturecards-topic-card:first-child h3 a" "css_element"
     And ".format-picturecards-customicon .fa-book-open" "css_element" should exist
 
   Scenario: Upload and replace an image, then return to a default icon
@@ -57,7 +57,7 @@ Feature: Teachers customise activity cards
   Scenario: Choose a picture for a topic independently of activity cards
     Given I am on the "PictureCards demo" course page logged in as teacher1
     And I turn editing mode on
-    When I click on "Topic appearance" "button" in the "[data-for='section'][data-number='1']" "css_element"
+    When I click on "Topic appearance" "button" in the "li[data-for='section'][data-number='1']" "css_element"
     And I upload "course/format/picturecards/tests/fixtures/badge.png" file to "Topic picture" filemanager
     And I press "Save changes"
     Then ".format-picturecards-topic-cover img" "css_element" should exist
@@ -77,3 +77,39 @@ Feature: Teachers customise activity cards
     Then ".course-content.format-picturecards-list" "css_element" should exist
     And ".format-picturecards-course-body.format-picturecards-list" "css_element" should exist
     And ".format-picturecards-course-toolbar [data-picturecards-layout='list'][aria-pressed='true']" "css_element" should exist
+
+  Scenario: Learners can change layouts and open a topic with the keyboard
+    Given I am on the "PictureCards demo" course page logged in as student1
+    When I set the focus on the ".format-picturecards-course-toolbar [data-picturecards-layout='list']" "css_element"
+    And I press enter
+    Then ".format-picturecards-course-toolbar [data-picturecards-layout='list'][aria-pressed='true']" "css_element" should exist
+    When I set the focus on the ".format-picturecards-course-toolbar [data-picturecards-layout='tiles']" "css_element"
+    And I press enter
+    Then ".format-picturecards-course-toolbar [data-picturecards-layout='tiles'][aria-pressed='true']" "css_element" should exist
+    When I set the focus on the ".format-picturecards-topic-card:first-child h3 a" "css_element"
+    And I press enter
+    Then I should see "Reading notes"
+
+  Scenario: Learners can navigate the course on a narrow viewport
+    Given I am on the "PictureCards demo" course page logged in as student1
+    When I change viewport size to "425x750"
+    And I click on "Close course index" "button"
+    And I click on "List" "button" in the ".format-picturecards-course-toolbar" "css_element"
+    Then ".format-picturecards-course-toolbar [data-picturecards-layout='list'][aria-pressed='true']" "css_element" should exist
+    When I click on "Tiles" "button" in the ".format-picturecards-course-toolbar" "css_element"
+    And I click on ".format-picturecards-topic-card:first-child h3 a" "css_element"
+    Then I should see "Reading notes"
+
+  Scenario: Completion controls remain separate from the activity card link
+    Given the following "activity" exists:
+      | activity   | page             |
+      | course     | SUB              |
+      | section    | 1                |
+      | name       | Completable page |
+      | completion | 1                |
+    And I am on the "PictureCards demo" course page logged in as student1
+    When I click on ".format-picturecards-topic-card:first-child h3 a" "css_element"
+    Then the manual completion button of "Completable page" is displayed as "Mark as done"
+    When I toggle the manual completion state of "Completable page"
+    Then the manual completion button of "Completable page" is displayed as "Done"
+    And I should see "Reading notes"

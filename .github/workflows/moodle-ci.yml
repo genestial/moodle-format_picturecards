@@ -1,7 +1,13 @@
 name: Moodle Plugin CI
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
 permissions:
   contents: read
+concurrency:
+  group: picturecards-release-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: ubuntu-24.04
@@ -9,6 +15,8 @@ jobs:
       fail-fast: false
       matrix:
         target:
+          - {moodle: MOODLE_503_STABLE, php: '8.3'}
+          - {moodle: MOODLE_503_STABLE, php: '8.4'}
           - {moodle: MOODLE_405_STABLE, php: '8.1'}
           - {moodle: MOODLE_405_STABLE, php: '8.2'}
           - {moodle: MOODLE_405_STABLE, php: '8.3'}
@@ -20,8 +28,6 @@ jobs:
           - {moodle: MOODLE_501_STABLE, php: '8.4'}
           - {moodle: MOODLE_502_STABLE, php: '8.3'}
           - {moodle: MOODLE_502_STABLE, php: '8.4'}
-          - {moodle: MOODLE_503_STABLE, php: '8.3'}
-          - {moodle: MOODLE_503_STABLE, php: '8.4'}
         database: [pgsql, mariadb, mysqli]
     services:
       postgres:
@@ -61,10 +67,6 @@ jobs:
           echo "$GITHUB_WORKSPACE/ci/vendor/bin" >> "$GITHUB_PATH"
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> "$GITHUB_ENV"
-      - name: Exercise proposed compatibility range
-        run: |
-          sed -i 's/\$plugin->requires  = 2026100500;/\$plugin->requires  = 2024100700;/' plugin/version.php
-          sed -i 's/\$plugin->supported = \[503, 503\];/\$plugin->supported = [405, 503];/' plugin/version.php
       - name: Install test site
         run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
@@ -76,11 +78,26 @@ jobs:
       - run: moodle-plugin-ci validate
       - run: moodle-plugin-ci savepoints
       - run: moodle-plugin-ci mustache
-      - run: moodle-plugin-ci grunt --max-lint-warnings 0
+      # Moodle 5.3 is the canonical build toolchain for distributed assets.
+      - name: Verify distributed frontend assets
+        if: matrix.target.moodle == 'MOODLE_503_STABLE'
+        run: moodle-plugin-ci grunt --max-lint-warnings 0
+      - name: Check older-branch frontend tools
+        if: matrix.target.moodle != 'MOODLE_503_STABLE'
+        run: |
+          moodle-plugin-ci grunt --tasks gherkinlint --tasks stylelint --max-lint-warnings 0
+          pluginpath="$GITHUB_WORKSPACE/moodle/course/format/picturecards"
+          if [ -d "$GITHUB_WORKSPACE/moodle/public/course/format/picturecards" ]; then
+            pluginpath="$GITHUB_WORKSPACE/moodle/public/course/format/picturecards"
+          fi
+          cp -a "$pluginpath/amd/build" "$RUNNER_TEMP/picturecards-build"
+          trap 'rm -rf "$pluginpath/amd/build"; cp -a "$RUNNER_TEMP/picturecards-build" "$pluginpath/amd/build"' EXIT
+          cd "$pluginpath/amd"
+          npx grunt amd --max-lint-warnings=0
       - run: moodle-plugin-ci phpunit --fail-on-warning
       - name: Behat
         id: behat
-        run: moodle-plugin-ci behat --profile chrome --scss-deprecations
+        run: moodle-plugin-ci behat --profile chrome --start-servers --scss-deprecations
       - uses: actions/upload-artifact@v7
         if: ${{ failure() && steps.behat.outcome == 'failure' }}
         with:
