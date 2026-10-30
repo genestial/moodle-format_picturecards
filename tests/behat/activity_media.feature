@@ -77,3 +77,15 @@ Feature: Teachers customise activity cards
     Then ".course-content.format-picturecards-list" "css_element" should exist
     And ".format-picturecards-course-body.format-picturecards-list" "css_element" should exist
     And ".format-picturecards-course-toolbar [data-picturecards-layout='list'][aria-pressed='true']" "css_element" should exist
+
+  Scenario: Learners can change layouts and open a topic with the keyboard
+    Given I am on the "PictureCards demo" course page logged in as student1
+    When I set the focus on the ".format-picturecards-course-toolbar [data-picturecards-layout='list']" "css_element"
+    And I press enter
+    Then ".format-picturecards-course-toolbar [data-picturecards-layout='list'][aria-pressed='true']" "css_element" should exist
+    When I set the focus on the ".format-picturecards-course-toolbar [data-picturecards-layout='tiles']" "css_element"
+    And I press enter
+    Then ".format-picturecards-course-toolbar [data-picturecards-layout='tiles'][aria-pressed='true']" "css_element" should exist
+    When I set the focus on the ".format-picturecards-topic-card:first-child h3 a" "css_element"
+    And I press enter
+    Then I should see "Reading notes"
